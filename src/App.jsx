@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import Router from './router';
+import Router from './Router';
 import Mainfont from './assets/fonts/ParmaInitialenMK.ttf';
 
 const GlobalStyle = createGlobalStyle`
