@@ -37,6 +37,10 @@ body {
 	line-height: 1;
   width:100vw;
   height:100vh;
+  -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-use-select: none;
+ user-select: none;
 }
 ol, ul {
 	list-style: none;

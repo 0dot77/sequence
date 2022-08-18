@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { useState } from 'react';
 
 const MainContainer = styled.main`
   width: 100%;
@@ -6,6 +7,23 @@ const MainContainer = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: contain;
+  background-image: ${(props) => (props.backImg ? null : null)};
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+`;
+
+const Moving = keyframes`
+  0% {
+    right: 30%;
+  }
+  50% {
+    right:0;
+  }
+
+  100% {
+    right:30%;
+  }
 `;
 
 const ImgContainer = styled.div`
@@ -30,22 +48,27 @@ const CloseContainer = styled.div`
   display: flex;
   justify-content: end;
   z-index: 2000;
-  left: 50%;
+  /* left: 50%; */
   top: 50%;
   transform: translate(-50%, -50%);
+  animation: ${Moving} 3s ease infinite;
+  z-index: 100000;
 `;
 const Close = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
   background-color: red;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 //TODO: location을 확인해서 각 로케에 맞는 이미지로 바꾸기
+
 export default function FirstPopUpModal({ clickNum, setClickNum }) {
+  const [backImg, setBackImg] = useState(false);
   return (
-    <MainContainer>
-      <ImgContainer>
+    <MainContainer backImg={backImg} clickNum={clickNum}>
+      <ImgContainer onClick={() => setBackImg((current) => !current)}>
         <img src={`/assets/first/${clickNum}.jpeg`} />
       </ImgContainer>
       <CloseContainer>
@@ -56,12 +79,12 @@ export default function FirstPopUpModal({ clickNum, setClickNum }) {
             }
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               fill="white"
               d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             />
           </svg>
         </Close>
